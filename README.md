@@ -8,8 +8,7 @@ Benchmarker for Evaluating the Effectiveness of RNA-Seq Software (**BEERS**)
 
 **BEERS** was designed to benchmark RNA-Seq alignment algorithms and also algorithms that aim to reconstruct different isoforms and alternate splicing from RNA-Seq data.
 
-**Publication:** [Comparative Analysis of RNA-Seq Alignment Algorithms and the RNA-Seq Unified Mapper (RUM)](http://www.ncbi.nlm.nih.gov/pubmed/21775302?dopt=Abstract)
-**Authors:** Gregory R. Grant, Michael H. Farkas, Angel Pizarro, Nicholas Lahens, Jonathan Schug, Brian Brunk, Christian J. Stoeckert Jr, John B. Hogenesch and Eric A. Pierce.
+
 
 By default **BEERS** simulates either mouse or human paired-end RNA-Seq data modeled on the illumina platform. It starts with a large number of gene models (approx 500K) taken from about ten different published annotation efforts, and then chooses a fixed number of these genes at random (30,000 by default). This avoids biasing for or against any particular set of annotations. **BEERS** then introduces substitutions, indels, alternate spice forms, sequencing errors, and intron signal. **BEERS** can also simulate strand specific reads. **BEERS** does not simulate quality scores. There are four configuration files required (available below).
 
@@ -47,3 +46,10 @@ In order not to bias for or against any particular set of gene models, many diff
    - you need this to calculate the false positive rates.
 
 There are a few other files, basically all the info about the 'truth' you could possibly want to know is in there somewhere including the coverage plot and the fasta file of genes and the signal intensities.
+
+
+## Cite
+
+**Publication:** [Comparative Analysis of RNA-Seq Alignment Algorithms and the RNA-Seq Unified Mapper (RUM)](http://www.ncbi.nlm.nih.gov/pubmed/21775302?dopt=Abstract)
+
+**Authors:** Gregory R. Grant, Michael H. Farkas, Angel Pizarro, Nicholas Lahens, Jonathan Schug, Brian Brunk, Christian J. Stoeckert Jr, John B. Hogenesch and Eric A. Pierce.
