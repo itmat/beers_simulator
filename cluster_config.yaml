@@ -11,3 +11,11 @@ memory_one: 7000
 memory_two: 8000
 submission_cmd: bsub
 submission_memory_flag: -M
+
+
+## SGE
+#---
+#memory_one: 7G
+#memory_two: 8G
+#submission_cmd: qsub
+#submission_memory_flag: -l h_vmem=
