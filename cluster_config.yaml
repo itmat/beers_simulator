@@ -1,0 +1,6 @@
+---
+memory_one: 7000
+memory_two: 8000
+submission_cmd: bsub
+submission_memory_flag: -M
+

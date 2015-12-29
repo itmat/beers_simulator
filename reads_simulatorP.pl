@@ -1,6 +1,10 @@
-if(@ARGV < 3) {
+use FindBin qw($Bin);
+use lib ("$Bin/lib", "$Bin/lib/perl5");
+use YAML;
+
+if(@ARGV < 4) {
     die "
-Usage: reads_simulatorP.pl <num reads> <name> <num reads per chunk> <args>
+Usage: reads_simulatorP.pl <num reads> <name> <num reads per chunk> <config file> <args>
 
 I recommend 1,000,000 reads per chunk.  It takes about 3-4 hours for
 a node to generate 1,000,000 read (pairs).
@@ -13,6 +17,20 @@ a node to generate 1,000,000 read (pairs).
 $num_reads = $ARGV[0];
 $name = $ARGV[1];
 $num_reads_per_chunk = $ARGV[2];
+$config_file = $ARGV[3];
+
+#my $r = {"submission_cmd" => "bsub", "submission_memory_flag" => "-M",
+#    "memory_one" => 7000, "memory_two" => 8000};
+
+#print YAML::Dump($r), "\n";
+open my $fh, '<', $config_file or die "error opening $config_file: $!";
+my $data = do { local $/; <$fh> };
+#print $data, "\n";
+my $config = Load($data);
+
+#print STDERR "Lala $config->{submission_cmd} \n";
+#die $config->{submission_cmd}, "\n";
+
 
 $argstring = "";
 $configstem = "temp";
@@ -71,7 +89,7 @@ print OUT "perl $path2/scripts/reads_simulator.pl 10 $name_temp $argstring\n";
 print OUT "echo 'done' > $path/$name_temp.txt\n";
 close(OUT);
 
-`bsub -M 8000 bash $path/sim_temp.sh`;
+`$config->{submission_cmd} $config->{submission_memory_flag} $config->{memory_two} bash $path/sim_temp.sh`;
 
 print STDERR "writing initial configs\n";
 
@@ -106,7 +124,7 @@ for($i=0; $i<$numchunks; $i++) {
     print OUT "perl $path2/scripts/reads_simulator.pl $numreads_thischunk $name_thischunk -configstem $configstem -usesubs $path/$subsname -useindels $path/$indelsname -usealts $path/$altsname -usepcd -usevarcov $path/$ivtname -sn -cntstart $cntstart $argstring\n";
     print OUT "echo 'done' >> $path/$name_temp.txt\n";
     close(OUT);
-    `bsub -M 7000 bash $shell_thischunk`;
+    `$config->{submission_cmd} $config->{submission_memory_flag} $config->{memory_one} bash $shell_thischunk`;
 }
 
 $a = `wc -l $path/$name_temp.txt`;
