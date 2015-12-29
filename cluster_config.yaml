@@ -1,6 +1,13 @@
+# Cluster Configuration
+# fill out the following:
+# submission_cmd = e.g "bsub","qsub"
+# submission_memory_flag = e.g. "-M","-q umem -M"
+# memory_one = has to at least 7,000 mb
+# memory_two = has to at least 8,000 mb
+
+## LSF
 ---
 memory_one: 7000
 memory_two: 8000
 submission_cmd: bsub
 submission_memory_flag: -M
-
